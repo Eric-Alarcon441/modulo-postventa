@@ -12,7 +12,118 @@
 		<%- include('./partials/navigation.ejs'); -%>
 		<!--Validacion de registro-->
 		<% if (regist) { %>
-		<h1>cliente</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 mt-4">
+					<table class="table table-dark">
+						<thead>
+							<tr class="text-center">
+								<th scope="col">#</th>
+								<th scope="col">Servicio</th>
+								<th scope="col">Responsable</th>
+								<th scope="col">Calificación</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% if (result) { %> <% for( let i = 0; i < result.length; i++ ) {
+							%>
+							<tr>
+								<td scope="row"><%= i%></td>
+								<td><%= result[i].nom_serv %></td>
+								<td><%= result[i].nom_as %></td>
+								<td><%= result[i].calificacion %></td>
+							</tr>
+							<% } %> <% } %>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-6 mt-4">
+					<div class="card">
+						<div class="card-body">
+							<form action="/cliente" method="POST" class="card-body">
+								<h3 class="card-title">Califica nuestro servicio</h3>
+								<div class="form-group">
+									<h6 class="text-center">Seleciona un servicio</h6>
+
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<label class="input-group-text" for="inputGroupSelect01"
+												>Servicio</label
+											>
+										</div>
+										<select
+											class="custom-select"
+											id="inputGroupSelect01"
+											name="servicio"
+										>
+											<% for( let i = 0; i < servicios.length; i++ ) { %>
+											<option
+												selected
+												class="text-center"
+												value="<%= servicios[i].id_servicio%>"
+											>
+												<%= servicios[i].nom_serv %>
+											</option>
+											<% } %>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<h6 class="text-center">Seleciona un asesor</h6>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<label class="input-group-text" for="inputGroupSelect01"
+												>Asesor</label
+											>
+										</div>
+
+										<select
+											class="custom-select"
+											id="inputGroupSelect01"
+											name="asesor"
+										>
+											<% for( let i = 0; i < asesores.length; i++ ) { %>
+											<option
+												selected
+												class="text-center"
+												value="<%= asesores[i].id_asesor%>"
+											>
+												<%= asesores[i].nom_as %>
+											</option>
+											<% } %>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<h6 class="text-center">Seleciona una calificacion</h6>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<label class="input-group-text" for="inputGroupSelect01"
+												>Calificacion (0-5)</label
+											>
+										</div>
+										<select
+											class="custom-select"
+											id="inputGroupSelect01"
+											name="calificacion"
+										>
+											<option class="text-center" value="0">0</option>
+											<option class="text-center" value="1">1</option>
+											<option class="text-center" value="2">2</option>
+											<option class="text-center" value="3">3</option>
+											<option class="text-center" value="4">4</option>
+											<option class="text-center" selected value="5">5</option>
+										</select>
+									</div>
+								</div>
+
+								<input type="submit" class="btn btn-primary" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<% } else { %>
 		<h3>No estas registrado <a href="/">Registrate aqui</a></h3>
 		<% } %>

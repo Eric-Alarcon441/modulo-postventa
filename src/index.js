@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -9,6 +10,13 @@ app.set('view engine', 'ejs');
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
+app.use(
+	session({
+		secret: 'mySecret',
+		resave: false,
+		saveUninitialized: true,
+	})
+);
 
 //rutas
 app.use(require('./routes/login'));

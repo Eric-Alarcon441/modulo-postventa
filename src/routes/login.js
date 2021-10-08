@@ -14,13 +14,24 @@ router.post('/', async (req, res) => {
 		[email, password],
 		(err, rows) => {
 			if (rows.length > 0) {
+				const email = rows[0].email;
+				const idUsuario = rows[0].id_usuario;
 				if (rows[0].id_role == 2) {
-					res.redirect('jefe', { regist: true });
+					req.session.message = { regist: true, email, idUsuario };
+					res.redirect('/jefe');
 				} else {
-					res.redirect('cliente', { regist: true });
+					req.session.message = {
+						regist: true,
+						email,
+						idUsuario,
+					};
+					res.redirect('/cliente');
 				}
 			} else {
-				res.redirect('login', { message: 'Usuario o contraseña incorrecta' });
+				res.render('login', {
+					message: 'usuario o contraseña incorrecto',
+					regist: false,
+				});
 			}
 		}
 	);

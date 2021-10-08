@@ -12,30 +12,52 @@
 		<%- include('./partials/navigation.ejs'); -%>
 		<!--Validacion de registro-->
 		<% if (regist) { %>
-		<h1>Jefe</h1>
+		<div class="container d-flex justify-content-center my-4">
+			<h3>Reportes</h3>
+		</div>
 
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
 					<table class="table table-dark">
 						<thead>
-							<tr>
-								<th scope="col"># Responsable</th>
+							<tr class="text-center">
+								<th scope="col">#</th>
 								<th scope="col">Servicio</th>
+								<th scope="col">Responsable</th>
 								<th scope="col">Calificación</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
+							<% for( let i = 0; i < rows.length; i++ ) { %>
+							<tr class="text-center">
+								<th scope="row"><%= i %></th>
+								<td><%= rows[i].nom_serv%></td>
+								<td><%= rows[i].nom_as%></td>
+								<td><%= rows[i].calificacion%></td>
 							</tr>
+							<% } %>
 						</tbody>
 					</table>
 				</div>
-				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					<table class="table table-dark">
+						<thead>
+							<tr class="text-center">
+								<th scope="col">#</th>
+								<th scope="col">Avisos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for( let i = 0; i < avisos.length; i++ ) { %>
+							<tr class="text-center">
+								<th scope="row"><%= i %></th>
+								<td><%= avisos[i].descripcion%></td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 

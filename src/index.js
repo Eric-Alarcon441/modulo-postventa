@@ -9,6 +9,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //middleware
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
 	session({
@@ -22,5 +23,6 @@ app.use(
 app.use(require('./routes/login'));
 app.use(require('./routes/cliente'));
 app.use(require('./routes/jefe'));
+app.get('*', (req, res) => res.redirect('/'));
 //servidor listen
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));

@@ -4,7 +4,9 @@ const dbConnection = require('../dbConnection');
 const conn = dbConnection();
 //rutas
 router.get('/', (req, res) => {
-	res.render('login', { message: null, regist: null });
+	req.session.message = { message: null, regist: null };
+	const { regist, message } = req.session.message;
+	res.render('login', { regist, message });
 });
 
 router.post('/', async (req, res) => {
@@ -17,20 +19,22 @@ router.post('/', async (req, res) => {
 				const email = rows[0].email;
 				const idUsuario = rows[0].id_usuario;
 				if (rows[0].id_role == 2) {
-					req.session.message = { regist: true, email, idUsuario };
+					req.session.message = { regist: 'jefe', email, idUsuario };
 					res.redirect('/jefe');
 				} else {
 					req.session.message = {
-						regist: true,
+						regist: 'cliente',
 						email,
 						idUsuario,
 					};
 					res.redirect('/cliente');
 				}
 			} else {
+				req.session.message = { regist: null };
+				const { regist } = req.session.message;
 				res.render('login', {
 					message: 'usuario o contraseña incorrecto',
-					regist: false,
+					regist,
 				});
 			}
 		}
